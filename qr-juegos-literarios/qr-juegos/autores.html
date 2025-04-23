@@ -1,0 +1,146 @@
+ <!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Autores</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background-image: url('https://i.postimg.cc/QCD04Bqw/61482654-3955-4c89-a5de-03341c7e5b1a.jpg');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      color: black;
+    }
+
+    header {
+      background-color: rgba(255, 255, 255, 0.6);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .menu-icon {
+      position: absolute;
+      left: 20px;
+      font-size: 22px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      height: 100%;
+      width: 50%;
+      background-color: rgba(255, 255, 255, 0.95);
+      transition: left 0.5s ease;
+      padding: 20px;
+      z-index: 2;
+    }
+
+    nav.show {
+      left: 0;
+    }
+
+    nav a {
+      display: block;
+      margin: 20px 0;
+      font-size: 18px;
+      color: #333;
+      text-decoration: none;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 36px;
+      margin: 0;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .autor {
+      text-align: center;
+      margin: 40px 10px;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .autor img {
+      width: 70%;
+      max-width: 300px;
+      height: auto;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      border: none;
+    }
+
+    .autor h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .autor p {
+      font-size: 16px;
+      margin: 5px auto;
+      max-width: 90%;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
+    <h1>Autores</h1>
+  </header>
+
+  <nav id="menu">
+    <a href="index.html">Inicio</a>
+    <a href="autores.html">Autores</a>
+    <a href="juegos.html">Juegos</a>
+    <a href="idiomas.html">Idioma</a>
+  </nav>
+
+  <div class="autor">
+    <img src="https://i.postimg.cc/x1Qf5Vqc/skarmtea.jpg" alt="Antonio Skármeta">
+    <h2>Antonio Skármeta</h2>
+    <p>Antonio Skármeta es un escritor chileno nacido en 1940. Conocido por su estilo cálido y humano, ganó reconocimiento internacional por obras como *El cartero de Neruda*.</p>
+    <p>La inspiración para escribir este libro surgió de su interés por la poesía de Pablo Neruda y el contexto político de Chile.</p>
+  </div>
+
+  <div class="autor">
+    <img src="https://i.postimg.cc/yd3CBLWM/471px-Stephen-King-Comicon.jpg" alt="Stephen King">
+    <h2>Stephen King</h2>
+    <p>Stephen King es un prolífico autor estadounidense nacido en 1947, reconocido por sus novelas de terror, suspenso y ciencia ficción. </p>
+    <p>Escribió *11/22/63* motivado por su fascinación con los viajes en el tiempo y el asesinato de JFK.</p>
+  </div>
+
+  <div class="autor">
+    <img src="https://i.postimg.cc/rsS6Rz1g/0905r.jpg" alt="Hernán Rivera Letelier">
+    <h2>Hernán Rivera Letelier</h2>
+    <p>Hernán Rivera Letelier, nacido en 1950, es un destacado escritor chileno que retrata la vida en el norte del país y sus salitreras con realismo poético.</p>
+    <p>*Santa María de las flores negras* fue inspirada en hechos reales ocurridos en la Escuela Santa María de Iquique.</p>
+  </div>
+
+ <div class="autor">
+    <img src="https://i.postimg.cc/rwySHbPw/hernan-rivera-l1.jpg" alt="Hernán Rivera Letelier">
+    <h2>Hernán Rivera Letelier</h2>
+    <p>Hernán Rivera Letelier también es el autor de *La reina Isabel cantaba rancheras*, una novela que mezcla ternura y humor para retratar la vida en una oficina salitrera del norte chilen>
+    <p>Este libro nació de sus propias vivencias y observaciones durante su infancia en las salitreras, y su deseo de rescatar esos espacios olvidados por la historia oficial.</p>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('menu');
+      menu.classList.toggle('show');
+    }
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,140 @@
+<!DOCTYPE html><html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Juegos</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background-image: url('https://i.postimg.cc/QCD04Bqw/61482654-3955-4c89-a5de-03341c7e5b1a.jpg');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      color: black;
+    }
+    header {
+      background-color: rgba(255, 255, 255, 0.6);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .menu-icon {
+      cursor: pointer;
+      font-size: 24px;
+      user-select: none;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      height: 100%;
+      width: 50%;
+      background-color: rgba(255, 255, 255, 0.95);
+      transition: left 0.5s ease;
+      padding: 20px;
+      z-index: 2;
+    }
+    nav a {
+      display: block;
+      margin: 20px 0;
+      font-size: 18px;
+      color: #333;
+      text-decoration: none;
+    }
+    nav.show {
+      left: 0;
+    }
+    h1 {
+      text-align: center;
+      font-size: 34px;
+      margin: 30px 0 10px;
+    }
+    h3 {
+      text-align: center;
+      font-size: 22px;
+      margin-bottom: 30px;
+    }
+    .libros-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px;
+    }
+    .libro-opcion {
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 10px;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 160px;
+      cursor: pointer;
+    }
+    .libro-opcion img {
+      width: 100%;
+      border-radius: 10px;
+      height: auto;
+    }
+    .todos-libros {
+    text-align: center;
+    margin: 1px 65px;
+    }
+    .todos-libros img {
+      width: 100%;
+      border-radius: 10px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+    .todos-libros {
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 10px;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 160px;
+      cursor: pointer;
+
+
+
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
+    <h2>Juegos</h2>
+  </header> <nav id="menu">
+    <a href="index.html">Inicio</a>
+    <a href="autores.html">Autores</a>
+    <a href="juegos.html">Juegos</a>
+    <a href="idiomas.html">Idioma</a>
+  </nav> <h1>Ludicorrelatos dinámicos</h1>
+  <h3>Elige un libro para comenzar</h3> <div class="libros-container">
+    <a href="ahorcado-cartero.html" class="libro-opcion">
+      <img src="https://i.postimg.cc/XY2D19xt/316e4390-3fb0-4ab0-a8c9-6080b544e5ed-0f-7683574-0-antonioskrmetaelcarterodenerud-1.jpg" alt="El cartero de Neruda">
+      <p>El cartero de Neruda</p>
+    </a>
+    <a href="juegos-isabel.html" class="libro-opcion">
+      <img src="https://i.postimg.cc/7YwsxKWp/articles-81791-thumbnail.jpg" alt="La reina Isabel cantaba rancheras">
+      <p>La reina Isabel cantaba rancheras</p>
+    </a>
+    <a href="juegos-stephen.html" class="libro-opcion">
+      <img src="https://i.postimg.cc/Bvk74srg/22-11-63.jpg" alt="11/22/63">
+      <p>11/22/63</p>
+    </a>
+    <a href="juegos-santa.html" class="libro-opcion">
+      <img src="https://i.postimg.cc/Gt1MTKhT/articles-86275-thumbnail-thumb-i-Normal.jpg" alt="Santa María de las flores negras">
+      <p>Santa María de las flores negras</p>
+    </a>
+  </div> <div class="todos-libros">
+    <a href="juegos-todos.html">
+      <img src="https://i.postimg.cc/Dys7kznP/Polish-20250422-160943803.jpg" alt="Todos los libros">
+      <p><strong>¡¡Todos los libros!!</strong></p>
+    </a>
+  </div> <script>
+    function toggleMenu() {
+      document.getElementById('menu').classList.toggle('show');
+    }
+  </script></body>
+</html>
+

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>El Cartero de Neruda - Ahorcado</title>
+  <style>
+    body {
+      background-image: url("https://i.postimg.cc/jjXv9yDn/bae22257-4d0e-496d-8a3a-a838df0d894c.jpg");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      font-family: "Georgia", serif;
+      margin: 0;
+      padding: 0;
+      color: black;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 80px;
+      font-size: 48px;
+      text-shadow: none;
+    }
+    #mensaje-final { font-size: 24px; margin-top: 20px; color: red; }
+    #intentos { color: red; font-weight: bold; font-size: 20px; }
+
+    .menu {
+      position: fixed;
+      top: 20px;
+      left: 15px;
+      cursor: pointer;
+      font-size: 20px;
+      color: black;
+      z-index: 10;
+    }
+
+    .menu-contenido {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 60%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .menu-contenido a {
+      text-decoration: none;
+      color: black;
+      font-size: 20px;
+      margin: 10px 0;
+      opacity: 0;
+      animation: fadeItem 0.6s ease forwards;
+    }
+
+    .menu-contenido a:nth-child(1) { animation-delay: 0.2s; }
+    .menu-contenido a:nth-child(2) { animation-delay: 0.4s; }
+    .menu-contenido a:nth-child(3) { animation-delay: 0.6s; }
+    .menu-contenido a:nth-child(4) { animation-delay: 0.8s; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeItem {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    #start-btn {
+      display: block;
+      margin: 40px auto;
+      padding: 12px 30px;
+      font-size: 20px;
+      background-color: white;
+      color: black;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    #game-container {
+      display: none;
+      text-align: center;
+      margin-top: 40px;
+      color: black;
+    }
+
+    #instructions {
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 15px;
+      border-radius: 10px;
+      margin: 40px auto;
+      max-width: 700px;
+      text-align: center;
+    }
+
+    #teclado button {
+      background-color: #ffffffcc;
+      border: 2px solid #444;
+      border-radius: 6px;
+      margin: 5px;
+      padding: 10px 14px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      color: black;
+    }
+
+    #teclado {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    #resultado-imagen {
+      margin-top: 20px;
+    }
+
+    #resultado-imagen img {
+      max-width: 400px;
+      width: 100%;
+      border-radius: 10px;
+    }
+  </style>
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById("menuContenido");
+      menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+    }
+  </script>
+</head>
+<body>
+  <div class="menu" onclick="toggleMenu()">&#9776;</div>
+  <div class="menu-contenido" id="menuContenido">
+    <a href="index.html">Inicio</a>
+    <a href="autores.html">Autores</a>
+    <a href="juegos.html">Juegos</a>
+    <a href="idiomas.html">Idioma</a>
+  </div>
+
+  <!-- INICIO DEL BLOQUE NUEVO -->
+  <h1>El Cartero de Neruda - Ahorcado</h1>
+  <button id="start-btn">Empezar</button>
+  <div id="instructions">
+    ¡Tienes 6 intentos para adivinar 2 palabras!<br />
+    Al acertar la primera, tus intentos se reinician.<br />
+    Si fallas completamente, la madre de Beatriz ahorcará a Mario.<br />
+    Si aciertas una pero no la otra... Beatriz se alejará de Mario.
+  </div>
+
+  <div id="game-container">
+    <p id="pista">Adivina la palabra relacionada con el libro</p>
+    <div id="palabra-oculta"></div>
+    <div id="teclado"></div>
+    <p>Intentos restantes: <span id="intentos">6</span></p>
+    <p id="mensaje-final"></p>
+    <div id="resultado-imagen"></div>
+    <button onclick="reiniciarJuego()">Reiniciar</button>
+  </div>
+
+  <script>
+    const palabrasBase = ["carta", "neruda", "pasion", "cartero", "politica", "pablo", "beatriz", "pueblo", "cambio"];
+    let palabras = [];
+    let etapa = 0;
+    let palabraActual = "";
+    let palabraMostrar = [];
+    let intentos = 6;
+    let juegoActivo = false;
+
+    const startBtn = document.getElementById("start-btn");
+    const instructions = document.getElementById("instructions");
+    const gameContainer = document.getElementById("game-container");
+    const palabraOculta = document.getElementById("palabra-oculta");
+    const teclado = document.getElementById("teclado");
+    const intentosSpan = document.getElementById("intentos");
+    const mensajeFinal = document.getElementById("mensaje-final");
+    const resultadoImagen = document.getElementById("resultado-imagen");
+
+    startBtn.addEventListener("click", () => {
+      startBtn.style.display = "none";
+      instructions.style.display = "none";
+      gameContainer.style.display = "block";
+      iniciarJuego();
+    });
+
+    function iniciarJuego() {
+      const copia = [...palabrasBase];
+      palabras = [];
+      for (let i = 0; i < 2; i++) {
+        const idx = Math.floor(Math.random() * copia.length);
+        palabras.push(copia.splice(idx, 1)[0].toLowerCase());
+      }
+
+      palabraActual = palabras[etapa];
+      palabraMostrar = Array(palabraActual.length).fill("_");
+      intentos = 6;
+      juegoActivo = true;
+      mensajeFinal.textContent = "";
+      resultadoImagen.innerHTML = "";
+      intentosSpan.textContent = intentos;
+      mostrarPalabra();
+      crearTeclado();
+    }
+
+    function mostrarPalabra() {
+      palabraOculta.textContent = palabraMostrar.join(" ");
+    }
+
+    function crearTeclado() {
+      teclado.innerHTML = "";
+      const letras = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+      letras.split("").forEach(letra => {
+        const btn = document.createElement("button");
+        btn.textContent = letra;
+        btn.addEventListener("click", () => usarLetra(letra.toLowerCase(), btn));
+        teclado.appendChild(btn);
+      });
+    }
+
+    function usarLetra(letra, btn) {
+      if (!juegoActivo || intentos <= 0) return;
+      btn.disabled = true;
+      let acierto = false;
+
+      for (let i = 0; i < palabraActual.length; i++) {
+        if (palabraActual[i] === letra) {
+          palabraMostrar[i] = letra;
+          acierto = true;
+        }
+      }
+
+      mostrarPalabra();
+
+      if (acierto) {
+        if (!palabraMostrar.includes("_")) {
+          if (etapa === 0) {
+            etapa = 1;
+            mensajeFinal.textContent = "¡Primera palabra acertada! Segunda palabra...";
+            setTimeout(iniciarJuego, 1500);
+          } else {
+            mensajeFinal.textContent = "¡Lo lograste! Mario y Beatriz están juntos.";
+            resultadoImagen.innerHTML = '<img src="https://i.postimg.cc/TY8QNDgR/a38b63f43da9-ap20220406stills0043r-t.jpg" alt="Mario y Beatriz felices">';
+            juegoActivo = false;
+          }
+        }
+      } else {
+        intentos--;
+        intentosSpan.textContent = intentos;
+        if (intentos <= 0) {
+          juegoActivo = false;
+          if (etapa === 0) {
+            mensajeFinal.textContent = "La madre de Beatriz ahorcó a Mario.";
+            resultadoImagen.innerHTML = '<img src="https://i.postimg.cc/sxGf08Fg/istockphoto-868224308-612x612.jpg" alt="Mario ahorcado">';
+          } else {
+            mensajeFinal.textContent = "¡Estuviste cerca! Pero Beatriz decidió alejarse de Mario.";
+            resultadoImagen.innerHTML = '<img src="https://i.postimg.cc/pXXMT4ch/5a87346f2f31-ap20220331mario-beatriz0010r-z-1.jpg" alt="Beatriz se va">';
+          }
+        }
+      }
+    }
+
+    function reiniciarJuego() {
+      etapa = 0;
+      iniciarJuego();
+    }
+  </script>
+  <!-- FIN DEL BLOQUE NUEVO -->
+</body>
+</html>
